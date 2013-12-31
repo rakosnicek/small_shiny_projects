@@ -31,7 +31,7 @@ shinyUI(pageWithSidebar(
         a("Wiekvoet", href="http://wiekvoet.blogspot.com/2013/12/merry-christmas.html"),
         ", powered by ", a("R", href="http://www.r-project.org/"),
         " and ",a("Shiny", href="http://www.rstudio.com/shiny/"),
-        ", source on ", a("Github", href="https://github.com/rakosnicek"))
+        ", source on ", a("Github", href="https://github.com/rakosnicek/small_shiny_projects"))
     
     
   ),
