@@ -121,7 +121,7 @@ mywish <- function(math) {
   if (math) {
     return("PF 11111011110")
   } else {
-    return("Pour FÃ©liciter 2014")
+    return("Pour Felicitér 2014")
   }
 }
 

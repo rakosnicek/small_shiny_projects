@@ -119,9 +119,9 @@ mytreeplot <- function(N, seed, double, math, Xmas, crippled) {
 
 mywish <- function(math) {
   if (math) {
-    return("PF 11111011110")
+    return("Happy 11111011110")
   } else {
-    return("Pour Féliciter 2014")
+    return("Pour Feliciter 2014")
   }
 }
 

@@ -1,5 +1,5 @@
-library(shinyapps)
+
 library(shiny)
-setwd("c:\\temp\\pf2014")
-runApp("c:\\temp\\pf2014")
+setwd("C:\\Temp\\git\\small_shiny_projects\\pf2014")
+runApp("C:\\Temp\\git\\small_shiny_projects\\pf2014")
 
