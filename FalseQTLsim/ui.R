@@ -1,3 +1,4 @@
+library(qtl)
 library(shiny)
 
 # Define UI for slider demo application
