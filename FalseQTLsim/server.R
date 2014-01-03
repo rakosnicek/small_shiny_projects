@@ -1,8 +1,7 @@
 require(shiny)
+require(qtl)
 
 lodplot <- function(nchr, chrlen, nmar, nind, her, ctype, ylim, button) {
-
-  require(qtl)
   
   # set random number generation to number of button clicks 
   set.seed(round(1000*button*pi %% 100000))
