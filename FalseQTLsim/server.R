@@ -17,6 +17,22 @@ scanone.qtlrel <- function(cross) {
   scanOne(y=cross$pheno$Y, gdat=t(A), vc=o)
 }
 
+scanone.regress <- function(cross) {
+  require(regress)
+  tmp <- lapply(cross$geno, function(x) x[[1]])
+  A <- t(do.call("cbind", tmp))
+  K2 <- matrix(0, nind(cross), nind(cross))
+  countmar <- sum(nmar(cross))
+  for (i in 1:(nind(cross)-1))
+    for (j in (i+1):nind(cross))
+      K2[i,j] <-K2[j,i] <- 1-sum(abs(A[,i]-A[,j]))/(2*countmar)
+  diag(K2) <- 1
+  
+  fit <- regress(cross$pheno$Y ~ 1, ~K2)
+  cross$pheno$Y <- cross$pheno$Y - fit$predicted
+  scanone(cross)
+}
+
 lodplot <- function(nchr, chrlen, nmar, nind, her, ctype, ylim, button, itype, qtlpos, qtlsize) {
   
   # set random number generation to number of button clicks 
@@ -39,13 +55,17 @@ lodplot <- function(nchr, chrlen, nmar, nind, her, ctype, ylim, button, itype, q
   #fake$pheno$Y <- fake$pheno$Y + (fake$geno[[11]][[1]][,1]==1)*sd(fake$pheno$Y)*sqrt(3/4)
   
   # make scanone lod-plot
+  fake <- calc.genoprob(fake)
   if (itype=="qtl") {
-    fake <- calc.genoprob(fake)
     output.scanone <- scanone(fake)    
   } else {
-    pv <- scanone.qtlrel(fake)
-    output.scanone <- scanone(calc.genoprob(fake))
-    output.scanone[,3] <-  pv$p/(2 * log(10))
+    if (itype=="QTLRel") {
+      pv <- scanone.qtlrel(fake)
+      output.scanone <- scanone(calc.genoprob(fake))
+      output.scanone[,3] <-  pv$p/(2 * log(10))
+    } else {
+      output.scanone <- scanone.regress(fake)
+    }  
   }
   plot(output.scanone, ylim=ylim)
 

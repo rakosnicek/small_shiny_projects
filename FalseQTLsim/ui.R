@@ -20,6 +20,7 @@ shinyUI(pageWithSidebar(
     # inference
     radioButtons("itype", "Scanone procedure:",
                  list("qtl" = "qtl",
+                      "regress + qtl" = "regqtl",
                       "QTLRel" = "QTLRel")),    
     HTML("<hr>"),
     
@@ -52,11 +53,11 @@ shinyUI(pageWithSidebar(
     
     # Number of markers
     sliderInput("nmr", "Number of markers per chromosome:",
-                min = 2, max = 50, value = 10),
+                min = 2, max = 30, value = 10),
     
     # Number of individuals
     sliderInput("nind", "Number of individuals:", 
-                min = 10, max = 1000, value = 250),
+                min = 10, max = 500, value = 250),
     
     # Ylim
     sliderInput("ylim", "Range of y-axis:",  
