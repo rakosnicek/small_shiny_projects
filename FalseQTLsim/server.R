@@ -13,7 +13,7 @@ scanone.qtlrel <- function(cross) {
       K2[i,j] <-K2[j,i] <- 1-sum(abs(A[,i]-A[,j]))/(2*countmar)
   diag(K2) <- 1
   
-  o <- estVC(y=cross$pheno$Y, v=list(AA=K2, DD=NULL, HH=NULL, AD=NULL, MH=NULL, EE=diag(nind(cross))))
+  o <- estVC(y=cross$pheno$Y, v=list(AA=2*K2, DD=NULL, HH=NULL, AD=NULL, MH=NULL, EE=diag(nind(cross))))
 
   scanOne(y=cross$pheno$Y, gdat=t(A), vc=o)
 }
