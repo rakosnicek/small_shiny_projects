@@ -34,7 +34,7 @@ scanone.regress <- function(cross) {
   scanone(cross)
 }
 
-lodplot <- function(nchr, chrlen, nmar, nind, her, ctype, ylim, button, itype, htype, qtlpos, qtlsize) {
+lodplot <- function(nchr, chrlen, nmar, nind, her, ctype, ylim, button, itype, htype, qtlpos, qtlsize, trhold) {
   
   # set random number generation to number of button clicks 
   set.seed(round(1000*button*pi %% 100000))
@@ -83,7 +83,12 @@ lodplot <- function(nchr, chrlen, nmar, nind, her, ctype, ylim, button, itype, h
   }
   plot(output.scanone, ylim=ylim)
 
-  fake
+  if (trhold) {
+    threshold <- summary(scanone(fake, n.perm = 100, verbose=FALSE), alpha=0.05)
+    abline(h = threshold, col="red", lty=2)
+  }
+  
+  
 }
 
 shinyServer(function(input, output) {
@@ -92,7 +97,7 @@ shinyServer(function(input, output) {
     # make genotype plot
     lodplot(as.integer(input$nchr), as.numeric(input$chrlen), 
             as.integer(input$nmr), as.integer(input$nind), as.numeric(input$her), 
-            input$ctype, input$ylim, input$button, input$itype, input$htype, input$qtlpos, input$qtlsize)
+            input$ctype, input$ylim, input$button, input$itype, input$htype, input$qtlpos, input$qtlsize, input$trhold)
   })
   
 })

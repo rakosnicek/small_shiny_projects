@@ -20,7 +20,11 @@ shinyUI(pageWithSidebar(
     radioButtons("itype", "Scanone procedure:",
                  list("qtl" = "qtl",
                       "regress + qtl" = "regqtl",
-                      "QTLRel" = "QTLRel")),    
+                      "QTLRel" = "QTLRel")),
+    
+    checkboxInput(inputId = "trhold",
+                  label = "Plot R/qtl 5% threshold (warning - time consuming)",
+                  value = FALSE),
     HTML("<hr>"),
     
     # qtl position
