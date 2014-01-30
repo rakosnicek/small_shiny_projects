@@ -7,5 +7,6 @@ Just a couple of various R/Shiny gadgets:
 * http://glimmer.rstudio.com/simecek/pf2014en/
 * http://glimmer.rstudio.com/simecek/pf2014/
 
-2) Scanone LOD Simulation for complex trait dependent on percentage of A-founder strain 
+2) Scanone LOD Simulation for complex trait dependent with background heritability
+* http://glimmer.rstudio.com/simecek/FalseQTLsim/
 * http://simecek.shinyapps.io/FalseQTLsim/

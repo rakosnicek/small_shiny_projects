@@ -18,9 +18,9 @@ shinyUI(pageWithSidebar(
     
     # inference
     radioButtons("itype", "Scanone procedure:",
-                 list("qtl" = "qtl",
-                      "regress + qtl" = "regqtl",
-                      "QTLRel" = "QTLRel")),
+                 list("qtl" = "qtl",                      
+                      "QTLRel" = "QTLRel",
+                      "regress + qtl" = "regqtl")),
     
     checkboxInput(inputId = "trhold",
                   label = "Plot R/qtl 5% threshold (warning - time consuming)",
@@ -69,9 +69,10 @@ shinyUI(pageWithSidebar(
     # Ylim
     sliderInput("ylim", "Range of y-axis:",  
                 min = 0, max = 10, value = c(0,5)),
-    br(),
+    br(), 
+    HTML("<hr>"),
     
-    actionButton("button", "Update View"),
+    actionButton("button", "Generate New"),
     br(), br(),
     
     div("Petr Simecek, powered by R and Shiny, source code on ",
