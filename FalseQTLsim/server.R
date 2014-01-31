@@ -43,9 +43,16 @@ lodplot <- function(nchr, chrlen, nmar, nind, her, ctype, ylim, button, itype, h
   map <- sim.map(len=rep(chrlen, nchr), n.mar=nmar)
   fake <- sim.cross(map, type=ctype, n.ind=nind, model = NULL)
   
-  if (htype=="kinship") {
+  if (htype!="kinship") {
     # genetic is proportional to A-fouder genome
-    genetic <- apply(sapply(fake$geno,function(x) apply(x[[1]], 1, sum)), 1, sum)
+    if (htype == "f1") {
+      genetic <- apply(sapply(fake$geno,function(x) apply(x[[1]], 1, sum)), 1, sum)
+    } else {
+      tmp <- lapply(fake$geno, function(x) x[[1]])
+      A.sampled <- do.call("cbind", tmp)[, sample(nmar*nchr,nmar*nchr*0.10)]
+      genetic <- apply(A.sampled, 1, sum)
+    }
+    noise <- rnorm(nind, sd=sd(genetic) * sqrt(100/her-1))
   } else {
     # calculate kinship matrix
     tmp <- lapply(fake$geno, function(x) x[[1]])
@@ -58,8 +65,9 @@ lodplot <- function(nchr, chrlen, nmar, nind, her, ctype, ylim, button, itype, h
     diag(K2) <- 1
     
     genetic <- mvrnorm(n = 1, rep(0,nind), K2)
+    noise <- rnorm(nind, sd=sqrt(100/her-1))
   }
-  noise <- rnorm(nind, sd=sqrt(100/her-1))
+  
   fake$pheno <- data.frame(Y = genetic + noise)
   
   # add QTL

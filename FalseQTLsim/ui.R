@@ -46,8 +46,9 @@ shinyUI(pageWithSidebar(
                       "Sib-mating RIS" = "risib")),
     br(),
     radioButtons("htype", "Heritability (genetic factor) generated as",
-                 list("Percentage of first founder's genotype" = "f1",
-                      "Kinship matrix" = "kinship")),
+                 list("Kinship matrix" = "kinship",
+                      "Percentage of first founder's genotype" = "f1",
+                      "10% markers with the same (little) effect" = "sameeffect")),
     br(),
     
     #Number of chromosomes
@@ -72,7 +73,7 @@ shinyUI(pageWithSidebar(
     br(), 
     HTML("<hr>"),
     
-    actionButton("button", "Generate New"),
+    actionButton("button", "Generate New Data"),
     br(), br(),
     
     div("Petr Simecek, powered by R and Shiny, source code on ",
