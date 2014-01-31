@@ -48,7 +48,11 @@ shinyUI(pageWithSidebar(
     radioButtons("htype", "Heritability (genetic factor) generated as",
                  list("Kinship matrix" = "kinship",
                       "Percentage of first founder's genotype" = "f1",
-                      "10% markers with the same (little) effect" = "sameeffect")),
+                      "X% markers are causal with the same effect size" = "sameeffect")),
+    conditionalPanel(condition = "input.htype == 'sameeffect'",
+                     sliderInput("causal", "Percentage of causal markers:", 
+                                 min=0, max=100, value=10),
+                     br()),
     br(),
     
     #Number of chromosomes
