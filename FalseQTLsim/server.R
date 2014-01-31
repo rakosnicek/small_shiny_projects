@@ -50,7 +50,8 @@ lodplot <- function(nchr, chrlen, nmar, nind, her, ctype, ylim, button, itype, h
     } else {
       tmp <- lapply(fake$geno, function(x) x[[1]])
       A.sampled <- do.call("cbind", tmp)[, sample(nmar*nchr,nmar*nchr*0.10)]
-      genetic <- apply(A.sampled, 1, sum)
+      signs <- sign(runif(ncol(A.sampled)) - 0.5)
+      genetic <- apply(A.sampled * rep(signs, each=nrow(A.sampled)), 1, sum)
     }
     noise <- rnorm(nind, sd=sd(genetic) * sqrt(100/her-1))
   } else {
