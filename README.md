@@ -12,3 +12,6 @@ Just a couple of various R/Shiny gadgets:
 * http://simecek.shinyapps.io/FalseQTLsim/
 
 3) Short Introduction to Shiny (incl. 3 exercises)
+
+See also my viewer of Recombinant Inbred Strains' genotypes:
+https://github.com/simecek/RIS-map-viewer
