@@ -10,3 +10,5 @@ Just a couple of various R/Shiny gadgets:
 2) Scanone LOD Simulation for complex trait dependent with background heritability
 * http://glimmer.rstudio.com/simecek/FalseQTLsim/
 * http://simecek.shinyapps.io/FalseQTLsim/
+
+3) Short Introduction to Shiny (incl. 3 exercises)
