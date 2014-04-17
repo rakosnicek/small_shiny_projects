@@ -1,0 +1,193 @@
+R / Shiny
+========================================================
+author: Petr Simecek
+date: 4/14/2014
+
+```{r setup, echo=FALSE}
+opts_chunk$set(fig.path='figure/', fig.align='center')
+set.seed(123)
+```
+
+
+ 
+========================================================
+
+I have been using R for 12 years. 
+First years my R outputs look like 
+
+```{r regression, echo=FALSE}
+x <- rnorm(100)
+y <- 2*x + rnorm(100, sd=0.5)
+plot(y~x)
+abline(lm(y~x), col="red")
+```
+
+Times They Are a-Changin'
+========================================================
+type: section
+
+Grammar of graphics
+========================================================
+
+```{r, eval=FALSE}
+boysbox <- ggplot(Oxboys, 
+                  aes(x=Occasion, y=height)) + 
+                  geom_boxplot()
+```
+
+```{r, echo=FALSE}
+require(ggplot2)
+data(Oxboys, package="nlme")
+boysbox <- ggplot(Oxboys, aes(Occasion, height)) 
+boysbox <- boysbox + geom_boxplot() + ggtitle("Height of a selection of boys from Oxford")
+boysbox
+```
+
+Add lines per subject
+========================================================
+
+```{r, eval=FALSE}
+boysbox + geom_line(aes(group = Subject), 
+                    colour = "blue")
+```
+
+
+```{r, echo=FALSE}
+boysbox + geom_line(aes(group = Subject), colour = "blue", alpha=0.4)
+```
+
+Make it look like WSJ
+========================================================
+
+```{r, eval=FALSE}
+boysbox + theme_wsj()
+```
+
+
+```{r, echo=FALSE}
+library(ggthemes)
+boysbox + theme_wsj() + ggtitle("Height of boys from Oxford")
+```
+
+Color it like M&M candy
+========================================================
+
+```{r, echo=FALSE}
+require(RSkittleBrewer)
+boysbox + theme_wsj() + geom_boxplot(aes(fill = Occasion)) + scale_fill_manual(values = c(RSkittleBrewer('M&M'),RSkittleBrewer("wildberry")[c(2,4,5)]))
+```
+
+See packages ```RSkittleBrewer```, ```xkcd``` and ```ggthemes```.
+
+
+
+R Speed up
+========================================================
+
+Remember the old days when we use only one processor for bootstrapping and permutation tests? 
+
+```{r, eval=FALSE}
+Nboot <- 1000
+dataset <- subset(iris, Species != "setosa", 
+                  select = c(1,5))
+results <- matrix(nrow = 2, ncol = Nboot)
+
+system.time({
+  for (i in 1:Nboot) {
+    id <- sample(nrow(dataset), replace=TRUE)
+    results[,i] <- glm(Species ~ Sepal.Length, 
+                       "binomial", dataset[id,]
+                       )$coef
+  }
+})
+```
+
+R Speed up (cont'd)
+========================================================
+
+Today, it is so easy to split the job between all the cores.
+
+```{r, eval=FALSE}
+library(doParallel)
+NCores <- detectCores()
+cl <- makeCluster(NCores)
+registerDoParallel(cl)
+
+system.time({
+  results <- foreach (i = 1:Nboot) %dopar% {
+    id <- sample(nrow(dataset), replace=TRUE)
+    glm(Species ~ Sepal.Length, 
+        "binomial", dataset[id,])$coef
+  }  
+})
+
+stopCluster(cl)
+```
+
+Not to forget JIT compilation and `Rcpp` package.
+
+There is now a package for everything
+========================================================
+
+```{r cow, echo=TRUE, message=TRUE}
+library(cowsay, quietly = TRUE)
+say("R is awesome!", by = "cow")
+```
+
+Yes, there is cowsay package.
+
+Shiny
+========================================================
+type: section
+
+
+Motivation
+========================================================
+
+* Want to get R into web browsers 
+* Just make R accessible 
+* Previous approaches: rApache, Rserve (Java, C++, C#, Python, Ruby, .NET), deployR, Custom hacks 
+
+
+Shiny 
+========================================================
+* Open-Sourced by RStudio 11/2012 on CRAN
+* New model for web-accessible R code 
+* Able to generate basic web UIs 
+* Uses web sockets 
+* Built on a “Reactive Programming” model 
+* Entirely extensible 
+* Custom inputs and outputs
+
+Reactive programming 
+========================================================
+
+a <- 3
+
+b <- a + 2 
+
+a <- 7 
+
+b == ?
+
+ui.R and server.R 
+========================================================
+
+ui.R
+----
+* specify how the web page will look like
+
+server.R
+--------
+* specify how outputs should be calculated from inputs
+
+
+Exercise 0: Hello World!
+========================
+
+Install shiny package. Download and extract 00_hello_world.zip file from http://jdem.cz/bapnb8. Edit the path in run.R and run it.
+
+Exercise 1: Minimal sample size calculator
+==========================================
+
+Look at power.t.test function and make a minimal sample size calculator for two-sample, two-sided T-test.
