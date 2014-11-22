@@ -15,3 +15,8 @@ Just a couple of various R/Shiny gadgets:
 
 See also my viewer of Recombinant Inbred Strains' genotypes:
 https://github.com/simecek/RIS-map-viewer
+
+4) mtcars_demo
+
+Two plots communicate with each other (the same dot is always highlighted in both plots)
+Inpired by http://github.com/mikelove/shinyMA

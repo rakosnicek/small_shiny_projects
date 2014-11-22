@@ -1,4 +1,6 @@
 library(shiny)
+library(ggvis)
+
 shinyUI(fluidPage(
   titlePanel("demo of two plots"),
   flowLayout(
