@@ -17,6 +17,7 @@ shinyServer(function(input, output, session) {
       transform(red = id == as.numeric(input$selected)) %>%
       ggvis(x=~mpg, y=~disp, fill=~factor(red), key := ~id, size :=100) %>% 
       layer_points() %>% 
+      set_options(width=250, height=250) %>%
       hide_legend("fill") %>% hide_legend("size") %>%
       add_tooltip(get_id, "click")}) %>% bind_shiny("myplot1")
     
@@ -26,6 +27,7 @@ shinyServer(function(input, output, session) {
       transform(red = id == as.numeric(input$selected)) %>%
       ggvis(x=~mpg, y=~drat, fill=~factor(red), key := ~id, size :=100) %>% 
       layer_points() %>% 
+      set_options(width=250, height=250) %>%
       hide_legend("fill") %>% hide_legend("size") %>%
       add_tooltip(get_id, "click")}) %>% bind_shiny("myplot2")
   
