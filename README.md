@@ -20,3 +20,8 @@ https://github.com/simecek/RIS-map-viewer
 
 Two plots communicate with each other (the same dot is always highlighted in both plots)
 Inpired by http://github.com/mikelove/shinyMA
+
+5) latent_variables_demo
+
+A demonstration that conditionally indepentent variables may become dependent if we observe them inderectly.
+http://glimmer.rstudio.com/simecek/latent_variables/
