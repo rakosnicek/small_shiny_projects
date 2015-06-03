@@ -1,6 +1,8 @@
 Small R/Shiny projects
 ====================
 
+WARNING! RStudio glimmer server and free Shinyapps are over, so most of the link do not work.
+
 Just a couple of various R/Shiny gadgets:
 
 1) PF2014 and PF2014EN (Czech and English) Wish a Happy New Year 2014
